@@ -23,6 +23,7 @@ hex_lenght = len(hexcolors)
 
 template = "\033[38;5;{value}m{string}\033[0m"
 def print_color_text(text, ws):
+    ws = np.array(ws)
     ws = (ws - np.min(ws)) / (np.max(ws) - np.min(ws)) * 0.99
     for string, w in zip(text, ws):
         vid = int(w * length)
@@ -32,6 +33,7 @@ def print_color_text(text, ws):
 
 markdown_template = '<font color="{}">{}</font>'
 def render_color_markdown(text, ws):
+    ws = np.array(ws)
     ws = (ws - np.min(ws)) / (np.max(ws) - np.min(ws)) * 0.99
     ss = []
     for string, w in zip(text, ws):
