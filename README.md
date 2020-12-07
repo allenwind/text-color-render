@@ -7,9 +7,18 @@
 ![](asset/command-line-demo.png)
 
 
+
 Markdown效果：
 
 ![](asset/markdown-demo.png)
+
+
+
+高亮差异部分：
+
+![](asset/lcs-diff.png)
+
+
 
 真实场景示例：
 
