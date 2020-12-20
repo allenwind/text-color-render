@@ -13,6 +13,12 @@ Markdown效果：
 ![](asset/markdown-demo.png)
 
 
+使用matplotlib绘制成图像的效果：
+
+![](asset/matplotlib-demo.png)
+
+这里使用`STKAITI.TTF`字体，侵删。
+
 
 高亮差异部分：
 
@@ -20,6 +26,6 @@ Markdown效果：
 
 
 
-真实场景示例：
+真实场景示例（匹配）：
 
 ![](asset/match-demo.png)
