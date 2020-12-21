@@ -1,4 +1,5 @@
 import numpy as np
+import collections
 
 # ANSI escape code
 ansi_code_ids =  [15, 224, 217, 210, 203, 9, 160, 124, 88]
@@ -52,8 +53,40 @@ def render_color_markdown(text, ws):
         ss.append(markdown_template.format(hexcolors[i], string))
     return "".join(ss)
 
+def print_match_substring(text1, text2, reverse_render=False):
+    # 高亮两个文本的最长公共子串
+    if not (text1 and text2):
+        return
+    s1 = len(text1)
+    s2 = len(text2)
+    dp = np.zeros((s1 + 1, s2 + 1), dtype=np.int32)
+    maxlen = 0
+    span1 = (0, 0)
+    span2 = (0, 0)
+    for i in range(1, s1 + 1):
+        for j in range(1, s2 + 1):
+            if text1[i - 1] == text2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+                if dp[i][j] > maxlen:
+                    maxlen = dp[i][j]
+                    span1 = (i - maxlen, i)
+                    span2 = (j - maxlen, j)
+
+    w1 = np.zeros(s1)
+    w2 = np.zeros(s2)
+    w1[span1[0]:span1[1]] = 1
+    w2[span2[0]:span2[1]] = 1
+    if reverse_render:
+        w1 = 1 - w1
+        w2 = 1 - w2
+
+    print_color_text(text1, w1)
+    print_color_text(text2, w2)
+
 def print_match_subsequence(text1, text2, reverse_render=False):
     # 高亮两个文本的最长公共子序列（LCS）
+    if not (text1 and text2):
+        return
     s1 = len(text1)
     s2 = len(text2)
     dp = np.zeros((s1 + 1, s2 + 1), dtype=np.int32)
@@ -107,3 +140,7 @@ if __name__ == "__main__":
     text1 = "NLP的魅力在于不断探索"
     text2 = "NLP的梦魇在于不断调参"
     print_match_subsequence(text1, text2, True)
+
+    text1 = "The quick brown fox jumps over the lazy dog"
+    text2 = "The lazy brown fox jumps over the quick dog"
+    print_match_substring(text1, text2, True)

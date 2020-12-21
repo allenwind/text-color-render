@@ -6,8 +6,6 @@
 
 ![](asset/command-line-demo.png)
 
-
-
 Markdown效果：
 
 ![](asset/markdown-demo.png)
@@ -20,11 +18,13 @@ Markdown效果：
 这里使用`STKAITI.TTF`字体，侵删。
 
 
-高亮差异部分：
+基于最长公共子序列高亮差异部分：
 
 ![](asset/lcs-diff.png)
 
+基于最长公共子串高亮差异部分：
 
+![](asset/match-substring-demo.png)
 
 真实场景示例（匹配）：
 
