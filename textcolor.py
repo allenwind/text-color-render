@@ -130,6 +130,22 @@ def print_match_subsequence(text1, text2, reverse_render=False):
     print_color_text(text1, sw1)
     print_color_text(text2, sw2)
 
+def print_match_jaccard(text1, text2, reverse_render=False):
+    # 逐位置比较差异
+    w1 = np.zeros(len(text1), dtype=np.float32)
+    w2 = np.zeros(len(text2), dtype=np.float32)
+    for i, (c1, c2) in enumerate(zip(text1, text2)):
+        if c1 == c2:
+            w1[i] = 1.0
+            w2[i] = 1.0
+
+    if reverse_render:
+        w1 = 1 - w1
+        w2 = 1 - w2
+
+    print_color_text(text1, w1)
+    print_color_text(text2, w2)
+
 if __name__ == "__main__":
     # for testing
     import string
@@ -144,3 +160,5 @@ if __name__ == "__main__":
     text1 = "The quick brown fox jumps over the lazy dog"
     text2 = "The lazy brown fox jumps over the quick dog"
     print_match_substring(text1, text2, True)
+
+    print_match_jaccard(text1, text2, True)
