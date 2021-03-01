@@ -17,6 +17,8 @@ Markdown效果：
 
 ![](asset/matplotlib-demo.png)
 
+![](asset/matplotlib-demo-2.png)
+
 这里使用`STKAITI.TTF`字体，侵删。
 
 

@@ -4,6 +4,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 from textcolor import hexcolors, hex_lenght
 
+def gen_colormap_hex(name="rainbow"):
+    cmap = matplotlib.cm.get_cmap(name)
+    colors = []
+    for i in range(cmap.N):
+        rgb = cmap(i)[:3]
+        colors.append(matplotlib.colors.rgb2hex(rgb))
+    return colors
+
+hexcolors = gen_colormap_hex()
+hex_lenght = len(hexcolors)
+
 class ImageFontTransformer:
 
     def __init__(self, file="fonts/STKAITI.TTF", size=30, pad_size=32):
@@ -55,7 +66,8 @@ def render_color_image(text, ws):
 
 if __name__ == "__main__":
     # for testing
-    text = "NLP的魅力在于不断探索"
+    text = "NLP的魅力在于不断探索" * 2
     image = render_color_image(text, np.arange(len(text)))
     plt.imshow(image)
+    plt.axis("off")
     plt.show()
