@@ -146,6 +146,34 @@ def print_match_jaccard(text1, text2, reverse_render=False):
     print_color_text(text1, w1)
     print_color_text(text2, w2)
 
+def min_edit_distance(word1, word2):
+    # Levenshtein distance
+    n = len(word1)
+    m = len(word2)
+
+    # 空串情况
+    if n * m == 0:
+        return n + m
+
+    dp = np.zeros((n+1, m+1), dtype=np.int32)
+
+    # 初始化边界状态
+    for i in range(n + 1):
+        dp[i][0] = i
+    for j in range(m + 1):
+        dp[0][j] = j
+
+    # 计算所有dp值
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            left = dp[i-1][j] + 1
+            down = dp[i][j-1] + 1
+            left_down = dp[i-1][j-1]
+            if word1[i-1] != word2[j-1]:
+                left_down += 1
+            dp[i][j] = min(left, down, left_down)
+    return dp[n][m]
+
 if __name__ == "__main__":
     # for testing
     import string
@@ -156,6 +184,7 @@ if __name__ == "__main__":
     text1 = "NLP的魅力在于不断探索"
     text2 = "NLP的梦魇在于不断调参"
     print_match_subsequence(text1, text2, True)
+    print("levenshtein distance:", min_edit_distance(text1, text2))
 
     text1 = "The quick brown fox jumps over the lazy dog"
     text2 = "The lazy brown fox jumps over the quick dog"
